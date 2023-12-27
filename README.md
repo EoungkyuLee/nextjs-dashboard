@@ -12,3 +12,4 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
    3. What's different of paraller , sequence and stream?
    4. How to implement search function using URL?
    5. continued URL : https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
+   6. next day i will do pagenation and search function implementation
