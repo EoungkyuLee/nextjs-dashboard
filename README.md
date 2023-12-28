@@ -6,10 +6,33 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 
 
 # RECORD YOUR PROGRESS
- > 2023-12-27
-   1. What kinds of rendering UI components? [parallel, sequence, stream]
-   2. How to uses paraller, sequence and stream?
-   3. What's different of paraller , sequence and stream?
-   4. How to implement search function using URL?
-   5. continued URL : https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
-   6. next day i will do pagenation and search function implementation
+  > 2023-12-27
+    1. What kinds of rendering UI components? [parallel, sequence, stream]
+    2. How to uses paraller, sequence and stream?
+    3. What's different of paraller , sequence and stream?
+    4. How to implement search function using URL?
+    5. continued URL : https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
+    6. next day i will do pagenation and search function implementation
+    
+  > 2023-12-28
+    > Debouncing 
+      - Reference Page URL : https://nextjs.org/learn/dashboard-app/adding-search-and-pagination#best-practice-debouncing
+      - Debouncing is a programing prcatice that limit the rate which a function can fire.
+      - Debouncing Works : Trigger Event, Wait, Execution
+      - Trigger Event : When an event that should be debounced occurs, a timer starts.
+      - Wait : If a new event occurs before the timer expires, the timer is reset
+      - Execution : If the timer reaches the end of its countdown, the debounced function is executed.
+
+    > Adding pagination
+      - Reference Page URL : https://nextjs.org/learn/dashboard-app/adding-search-and-pagination#best-practice-debouncing
+      - 
+    > CRUD
+      - Reference Page URL : https://nextjs.org/learn/dashboard-app/mutating-data#nextjs-with-server-actions
+
+    > library of zod
+      - Reference Page URL : https://nextjs.org/learn/dashboard-app/mutating-data#nextjs-with-server-actions
+      - Why use? : I want to ensure it's in the correct format and with the correct types.
+      - It's usually good for eliminate JavaScript floating-point errors and ensure greater accuracy.
+    
+    > clear cache after updating data - use library [revalidatePath]
+      - revalidatePath is from 'nest/cache' that library will be clear trigger and caches in that functions

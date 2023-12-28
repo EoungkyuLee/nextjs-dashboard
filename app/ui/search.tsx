@@ -5,22 +5,24 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 // useSearchParams is Update URL with the search params [2023-12-27]
 // uesPathname and usePathname are hooks to upcate the URL.
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname(); // get current path
   const {replace} = useRouter(); // set router url
 
-  function handleSearch(term: string){
+  const handleSearch = useDebouncedCallback((term) => {
     //URLSearchParams is manipulating the URL query parameters [2023-12-27]
     const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
     if(term) {
       params.set('query', term);
     }else {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`) //set url
-  }
+  }, 300);
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
