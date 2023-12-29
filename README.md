@@ -36,3 +36,12 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
     
     > clear cache after updating data - use library [revalidatePath]
       - revalidatePath is from 'nest/cache' that library will be clear trigger and caches in that functions
+  > 2023-12-29
+    > CRUD (direct control of Database)
+      > clear client-side router cache - use revalidatePath
+        - revalidatePath clear this cache and trigger a new   request to the server.
+      > What did i learn in CRUD chapter.
+        - I learned how to use Sever Actions to mutate data. I  also learned how to use the 'revalidatePath' API to  revalidate the Next.js cache and 'redirect' to redirect  the user to a new page.
+      > If i want to learn additional about 'security with  server actions' that i need to check of this url : https://  nextjs.org/blog/security-nextjs-server-components-actions
+      > Database direct handling CRUD learn page url : https:// nextjs.org/learn/dashboard-app/  mutating-data#nextjs-with-server-actions
+
