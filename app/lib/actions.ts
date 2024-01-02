@@ -8,15 +8,51 @@ import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
   id: z.string(),
-  customerId: z.string(),
-  amount: z.coerce.number(), //coerce == change
-  status: z.enum(['pending', 'paid']),
+  
+  //invalied_type_error is throws an error if the field empty.
+  customerId: z.string({
+    invalid_type_error : "Please select a customer."
+  }),
+  
+  //gt always want the amount greater than 0 with the .gt() function.
+  amount: z.coerce.number().gt(0, {
+    message : "Please enter an amount greater than $0"}), //coerce == change
+  
+  //add a friendly message if the user doesn't select a status.  
+  status: z.enum(['pending', 'paid'], {
+    invalid_type_error : "Please select an invoice status.",
+  }),
   date: z.string(),
 });
 
+
+export type State = {
+  errors?:{
+    customerId?: string[];
+    amount?: string[];
+    status?: string[];
+  };
+  message?: string | null;
+}
+
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(formData: FormData) {
+export async function createInvoice(prevState : State, formData: FormData) {
+  //safeParse will return an object containing either a success or error field.
+  const validatedFields = CreateInvoice.safeParse({
+    customerId: formData.get('customerId'),
+    amount: formData.get('amount'),
+    status: formData.get('status'),
+  });
+
+  // handle validation of field error
+  if (!validatedFields.success){
+    return {
+      errors : validatedFields.error.flatten().fieldErrors,
+      message : 'Missing Fields, Failed to Create Invoice.'
+    }
+  } 
+  
   const { customerId, amount, status } = CreateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -25,6 +61,7 @@ export async function createInvoice(formData: FormData) {
   const amountInCents = amount * 100;
   const date = new Date().toISOString().split('T')[0]; // splite time for only use date
 
+  
   try {
     await sql`
         insert into invoices (customer_id, amount, status, date)
@@ -47,8 +84,24 @@ export async function createInvoice(formData: FormData) {
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function updateInvoice(
-  id: string, formData: FormData
+  id: string, 
+  prevState : State,
+  formData: FormData
 ) {
+
+  const validatedField = UpdateInvoice.safeParse({
+    customerId : formData.get('customerId'),
+    amount: formData.get('amount'),
+    status : formData.get('status')
+  })
+
+  if(!validatedField.success){
+    return {
+      errors : validatedField.error.flatten().fieldErrors,
+      message : 'Missing Fields, Failed to Update Invoice'
+    }
+  }
+
   const { customerId, amount, status } = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -73,16 +126,14 @@ export async function updateInvoice(
 }
 
 export async function deleteInvoice(id: string) {
-  throw new Error('Faied to delete invoice');
+  throw new Error('Failed to Delete Invoice');
   
+  // Unreachable code block
   try {
-    await sql`delete from invoices where id = ${id}`;
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
-    return { message: 'Deleted Invoice.' };
+    return { message: 'Deleted Invoice' };
   } catch (error) {
-    return {
-      message: 'Database Error : Fail to delete invoice'
-    };
+    return { message: 'Database Error: Failed to Delete Invoice' };
   }
-
 }

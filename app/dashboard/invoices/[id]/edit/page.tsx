@@ -1,6 +1,7 @@
 import Form from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
 
 export default async function Page(
     { params }:
@@ -10,8 +11,13 @@ export default async function Page(
     const [invoice, customers] = await Promise.all([
         fetchInvoiceById(id),
         fetchCustomers(),
-    ])
-    console.log(id);
+    ]);
+
+    //If invoice value doesn't exist in database 
+    if(!invoice){
+        notFound();
+    }
+
     return (
         <main>
             <Breadcrumbs
