@@ -1,3 +1,5 @@
+'use client';
+
 import { lusitana } from '@/app/ui/fonts';
 import {
   AtSymbolIcon,
@@ -7,9 +9,24 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 
+/***
+ * [2024-01-04] - update , LEK
+ *  useFormState : to call the server action and handle form errors.
+ *  useFormStatus : to handle the pending state of the form
+ */
+import { useFormState, useFormStatus } from 'react-dom';
+import { authenticate } from '@/app/lib/actions';
+
+/**
+ * [2024-01-04] - update , LEK
+ *  Add to check authentication function in action.ts and use useFormState
+ *  Add error the error message form div
+ */
 export default function LoginForm() {
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
   return (
-    <form className="space-y-3">
+    <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Please log in to continue.
@@ -56,17 +73,32 @@ export default function LoginForm() {
           </div>
         </div>
         <LoginButton />
-        <div className="flex h-8 items-end space-x-1">
-          {/* Add form errors here */}
+        <div className="flex h-8 items-end space-x-1"
+        aria-live="polite"
+        area-atomic="true"
+        >
+          {
+            errorMessage && (
+              <>
+                <ExclamationCircleIcon className='h-5 w-5 text-red-500' />
+                <p className="text-sm text-red-500"></p>
+              </>
+            )
+          }
         </div>
       </div>
     </form>
   );
 }
 
+//[2024-01-04] update - add handling pending 
 function LoginButton() {
+  //handling pending
+  const { pending } = useFormStatus();
   return (
-    <Button className="mt-4 w-full">
+    <Button className="mt-4 w-full"
+    aria-disabled={pending}
+    >
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );

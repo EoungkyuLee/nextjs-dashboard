@@ -70,4 +70,56 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
   > > Whit is lint ? 
       - The warning would show up in the built logs.
   
+  > 2024-01-03
+> 
+  > > Authentification vs. Authorization
+      - Referenct URL : https://nextjs.org/learn/dashboard-app/adding-authentication#authentication-vs-authorization
+      - Authentification : Proving your identity
+      - Authorization : Once a user's identity is confirmed, authorization decides what parts of the application they are allowed to use.
+      - So, authentification check who you are, and authorization determines what you can do ro access the application.
+
+  > > next-auth@beta library implement of complexity involved in managing sessions.
+
+  > > How to get the encrypt cookies, ensuring the security of user sessions?
+      - $ openssl rand -base64 32
+
+  > > Auth and Request
+      - Auth property contains user's session.
+      - Request property contains the incoming request.
   
+  > > What is the advantage of employing Middleware 
+      - The protected routes will not even start rendering until the Middleware verifies the authentication, enhancing both the security and performance of your application. (미들웨어의 승인 없이 랜더링 방지, 보안과 퍼포먼스 향상)
+  
+  > > Password hashing
+
+  > > Login providers
+      - https://authjs.dev/getting-started/providers
+
+  > [2024-01-04]
+> 
+  > > SEO (Search Engine Optimization)
+      - https://searchengineland.com/guide/what-is-seo
+
+  > > What is Metadata ? 
+      - Referenct URL : https://nextjs.org/learn/dashboard-app/adding-metadata
+      - Metadata is working behind of the front pages, That's enhancing of the SEO.
+
+  > > Type of MetaData
+      - Title Metadata
+      - Description Metadata
+      - Keyword Metadata
+      - Open Graph Metadata
+      - Favicon Metadata
+  
+  > > Two way of can be used to define my application metadata. (I have the flexibility to use these for static metadata, or i can generate them programmtically within my project)
+      1. Config-based : static metadata object or a dynamic
+      2. File-based : range of special files that are specifically used for metadata purpose.
+
+  > > What is OG image ? 
+        - OG image is Open Graph image.
+        - The image that is displayed on social media accounts when you or someone else post a link to an article or a video from your website.
+
+  > > Clear Ttutorial of Next 
+        - resources to continue exploring Next.js links : https://nextjs.org/learn/dashboard-app/next-steps
+        
+        

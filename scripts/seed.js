@@ -5,6 +5,8 @@ const {
   revenue,
   users,
 } = require('../app/lib/placeholder-data.js');
+// bcrypt make to hash the user's password before storing it in the database.
+// bcrypt relies on Node.js APIs not available in Next.js Middleware.
 const bcrypt = require('bcrypt');
 
 async function seedUsers(client) {
